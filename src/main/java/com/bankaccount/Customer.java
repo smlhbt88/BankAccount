@@ -1,5 +1,7 @@
 package com.bankaccount;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +14,10 @@ public class Customer {
     private String email;
     private String address;
     List<String> bankStatement= new ArrayList<>();
+    private LocalDate transactionDate;
 
-    public Customer(){}
+    public Customer(){
+    }
     public Customer(double balance) {
         this.balance = balance;
     }
@@ -24,6 +28,7 @@ public class Customer {
         this.email = email;
         this.address = address;
         this.locked = false;
+        bankStatement.add(this.name + ","+ this.phoneNumber + ","+ this.email+","+this.address);
     }
 
     public double getBalance() {
@@ -31,11 +36,13 @@ public class Customer {
     }
 
     public double deposit(double amount) {
+        this.transactionDate = transactionDate.now();
         bankStatement.add("Amount deposited " + amount);
         return balance+=amount;
     }
 
     public Response withdraw(double amount) {
+        this.transactionDate=transactionDate.now();
         if(amount > this.balance) {
             return new Response("You don't have enough money to do this transaction",this.balance);
         }
@@ -71,5 +78,9 @@ public class Customer {
 
     public void setLocked(boolean locked) {
         this.locked = locked;
+    }
+
+    public void setTransactionDate(LocalDate transactionDate) {
+        this.transactionDate = transactionDate;
     }
 }

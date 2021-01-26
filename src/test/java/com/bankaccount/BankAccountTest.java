@@ -3,6 +3,7 @@ package com.bankaccount;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class BankAccountTest {
     Customer customer = new Customer(25);
@@ -119,7 +120,54 @@ public class BankAccountTest {
         banker.lockAccount(customer);
         String message = banker.unlockAccount(customer);
         assertEquals("account unlocked",message);
-
     }
+
+    /**
+     * Given that I am a banker
+     * When a customer requests information on the transactions,
+     * Then I expect to be able to access all his past transactions.
+     */
+    @Test
+    public void showAllPastTransactions() {
+        customer = new Customer("Daniel","123-4569","s@gmail.com","646 chicago ave.");
+        customer.deposit(50);
+        customer.deposit(500);
+        customer.withdraw(200);
+        customer.withdraw(10);
+        customer.withdraw(80);
+        customer.deposit(150);
+        customer.displayAllTheTransactions();
+        assertEquals("Daniel,123-4569,s@gmail.com,646 chicago ave.",customer.displayAllTheTransactions().get(0) );
+        assertEquals("Amount deposited 50.0",customer.displayAllTheTransactions().get(1) );
+        assertEquals("Amount deposited 500.0",customer.displayAllTheTransactions().get(2) );
+        assertEquals("Amount withdrawn 200.0",customer.displayAllTheTransactions().get(3) );
+        assertEquals("Amount withdrawn 10.0",customer.displayAllTheTransactions().get(4) );
+        assertEquals("Amount withdrawn 80.0",customer.displayAllTheTransactions().get(5) );
+        assertEquals("Amount deposited 150.0",customer.displayAllTheTransactions().get(6) );
+    }
+
+    /**
+     * Given that a charge will be applied to a customer's account because of no transactions in the last two months.
+     * When a customer requests the charge to be reverted in his account,
+     * Then I expect to be able to revert the charge applied to his account.
+     */
+//    @Test
+//    public void revertTransaction() {
+//        customer = new Customer("Daniel","123-4569","s@gmail.com","646 chicago ave.");
+//        customer.setTransactionDate();
+//        boolean v = customer.checkNoTransactionDateIfPassedTwoMonths();
+//        customer.applyCharge();
+//        if(v) {
+//            customer.revertCharge();
+//        }
+//
+//        //assertEquals(,customer.revertCharge());
+//
+//    }
+
+
+
+
+
 
 }
