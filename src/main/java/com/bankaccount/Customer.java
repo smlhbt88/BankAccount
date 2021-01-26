@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Customer {
 
+    private boolean locked;
     private double balance=25;
     private String name;
     private String phoneNumber;
@@ -22,6 +23,7 @@ public class Customer {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.address = address;
+        this.locked = false;
     }
 
     public double getBalance() {
@@ -65,5 +67,9 @@ public class Customer {
 
     public List<String> displayAllTheTransactions() {
         return bankStatement;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
     }
 }

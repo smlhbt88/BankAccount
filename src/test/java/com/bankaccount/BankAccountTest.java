@@ -100,6 +100,25 @@ public class BankAccountTest {
      */
     @Test
     public void checkCustomerProfileByBanker() {
+        customer = new Customer("Daniel","123-4569","s@gmail.com","646 chicago ave.");
+        assertEquals("Daniel",customer.getName());
+        assertEquals("123-4569",customer.getPhoneNumber());
+        assertEquals("s@gmail.com",customer.getEmail());
+        assertEquals("646 chicago ave.",customer.getAddress());
+    }
+
+    /**
+     * Given that I am a banker
+     * When a customer requests to unlock his account,
+     * Then I expect to be able to unlock his account.
+     */
+    @Test
+    public void unlockCustomerAccount() {
+        Banker banker = new Banker();
+        customer = new Customer("Daniel","123-4569","s@gmail.com","646 chicago ave.");
+        banker.lockAccount(customer);
+        String message = banker.unlockAccount(customer);
+        assertEquals("account unlocked",message);
 
     }
 
