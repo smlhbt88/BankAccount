@@ -46,6 +46,61 @@ public class BankAccountTest {
     public void withdrawWithMinimunBalance() {
         assertEquals("You don't have enough money to do this transaction",customer.withdraw(27.00).getMessage());
     }
+    /**
+     * Given that I am a customer
+     * When I want to withdraw and my balance reaches below $30
+     * Then I expect to receive an alert saying "Your balance reached below $30".
+     */
+    @Test
+    public void withdrawBalanceReachesBelow$30() {
+        customer.deposit(75);
+        assertEquals("Your balance reached below $30",customer.withdraw(71).getMessage());
+    }
 
+    /**
+     * Given that I am a customer
+     * When I update my profile information (Name, Phone Number, Email address, Address).
+     * Then I expect to see the updated information.
+     */
+    @Test
+    public void createACustomerProfile() {
+        customer = new Customer("Daniel","123-4569","s@gmail.com","646 chicago ave.");
+        assertEquals("Daniel",customer.getName());
+        assertEquals("123-4569",customer.getPhoneNumber());
+        assertEquals("s@gmail.com",customer.getEmail());
+        assertEquals("646 chicago ave.",customer.getAddress());
+    }
+
+    /**
+     * Given that I am a customer
+     * When I check me previous transactions,
+     * Then I expect to see all of the transactions
+     */
+    @Test
+    public void displayTransactions() {
+        customer = new Customer();
+        customer.deposit(50);
+        customer.deposit(500);
+        customer.withdraw(200);
+        customer.withdraw(10);
+        customer.withdraw(80);
+        customer.deposit(150);
+        customer.displayAllTheTransactions();
+        assertEquals("Amount deposited 50.0",customer.displayAllTheTransactions().get(0) );
+        assertEquals("Amount deposited 500.0",customer.displayAllTheTransactions().get(1) );
+        assertEquals("Amount withdrawn 200.0",customer.displayAllTheTransactions().get(2) );
+        assertEquals("Amount withdrawn 10.0",customer.displayAllTheTransactions().get(3) );
+        assertEquals("Amount withdrawn 80.0",customer.displayAllTheTransactions().get(4) );
+        assertEquals("Amount deposited 150.0",customer.displayAllTheTransactions().get(5) );
+    }
+    /**
+     * Given that I am a banker
+     * When I access a customer's profile information (Name, Phone Number, Email address, Address),
+     * Then I expect to see customer's profile information.
+     */
+    @Test
+    public void checkCustomerProfileByBanker() {
+
+    }
 
 }
